@@ -1,0 +1,13 @@
+name: core_utils
+description: Utilidades transversales del monorepo SaaS System Guri.
+publish_to: none
+version: 0.0.1
+
+environment:
+  sdk: ^3.8.1
+
+dependencies:
+  intl: ^0.20.2
+
+dev_dependencies:
+  flutter_lints: ^5.0.0

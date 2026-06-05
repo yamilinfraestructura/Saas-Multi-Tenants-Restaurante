@@ -1,0 +1,62 @@
+name: saas_system_guri
+repository: https://github.com/saas-system-guri/saas_system_guri
+
+packages:
+  - apps/**
+  - core/**
+  - features/**
+
+command:
+  bootstrap:
+    runPubGetInParallel: true
+
+scripts:
+  analyze:
+    run: flutter analyze --no-fatal-infos
+    exec:
+      concurrency: 5
+    description: Ejecuta flutter analyze en todos los paquetes Flutter.
+
+  test:
+    run: flutter test
+    exec:
+      concurrency: 5
+    description: Ejecuta tests en todos los paquetes Flutter.
+
+  format:
+    run: dart format .
+    exec:
+      concurrency: 5
+    description: Formatea el código de todos los paquetes.
+
+  build:all:
+    run: dart run build_runner build --delete-conflicting-outputs
+    exec:
+      concurrency: 1
+    packageFilters:
+      dependsOn: build_runner
+    description: Ejecuta build_runner donde esté declarado.
+
+  clean:
+    run: flutter clean
+    exec:
+      concurrency: 5
+    description: Limpia builds de todos los paquetes.
+
+  build:web:
+    run: flutter build web --release
+    packageFilters:
+      scope: shell_app
+    description: Compila shell_app para Web (Admin Panel).
+
+  build:windows:
+    run: flutter build windows --release
+    packageFilters:
+      scope: shell_app
+    description: Compila shell_app para Windows (POS local).
+
+  build:apk:
+    run: flutter build apk --release
+    packageFilters:
+      scope: shell_app
+    description: Compila shell_app APK para mozos (Android).

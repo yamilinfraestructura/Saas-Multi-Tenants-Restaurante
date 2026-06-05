@@ -203,6 +203,11 @@ dependencies:
   path_provider: ^2.1.5
   path: ^1.9.1
 
+  # ── CÓDIGOS QR & EXPORTACIÓN ───────────────────────
+  qr_flutter: ^4.1.0                 # Generación visual de QRs
+  pdf: ^3.10.8                       # Generación de PDFs (catálogo de QRs)
+  printing: ^5.11.1                  # Exportación y visualización de PDFs
+
   # ── MODELOS ────────────────────────────────────────
   freezed_annotation: ^2.4.4        # Modelos inmutables
   json_annotation: ^4.9.0           # Serialización JSON

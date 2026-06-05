@@ -46,6 +46,7 @@ Reglas de interacción, flujos asíncronos y soporte táctil vs escritorio.
 *   📄 `sdd/PLAN/UX/MULTI_TENNET_UX/sdd_multi_tenant_ux.md` (Cambios de contexto entre restaurantes).
 *   📄 `sdd/PLAN/UX/LOGIN_UX/sdd_login_ux.md` (Flujos sin parpadeos y animaciones de error).
 *   📄 `sdd/PLAN/UX/ADMIN_SCREEN_UX/sdd_admin_ux.md` (Uso de SlideOvers y DataTables).
+*   📄 `sdd/PLAN/UX/SALAS_UX/sdd_salas_ux.md` (ABM Salas/Mesas y Generador de QRs).
 *   📄 `sdd/PLAN/UX/MESAS_UX/sdd_mesas_ux.md` (Reglas táctiles para la operativa rápida del salón).
 
 ---

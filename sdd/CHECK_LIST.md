@@ -115,3 +115,28 @@ Esta fase debe ejecutarse íntegramente en el SQL Editor de Supabase.
 > 2. **Migración 12:** Aplicar `20260605100012_public_menu_rpc.sql` al remoto si aún no se hizo.
 > 3. **iOS:** `flutter build ios` requiere macOS + certificados Apple.
 > 4. **Pagos reales:** Botón "Renovar suscripción" en `/billing` es placeholder (MercadoPago/Stripe en release posterior).
+
+---
+
+## FASE 5: Sprints de Detalle de Funcionalidades (Fase Actual)
+
+Esta fase corresponde a la profundización y refinamiento de cada módulo. Basado en los SDD, aquí iremos construyendo la lógica fina.
+
+### Sprint 1: Gestión de Salas y Generación de Códigos QR (`feature_admin`)
+- [ ] Implementar UI Maestra-Detalle (`MesasManagerView` con pestañas de Salas).
+- [ ] Implementar SlideOver/BottomSheet para ABM de Salas (Crear, Editar, Eliminar).
+- [ ] Implementar SlideOver/BottomSheet para ABM de Mesas.
+- [ ] Lógica de validación: Impedir nombre de mesa duplicado en una sala.
+- [ ] Alerta de Cascada: Aviso visual al eliminar una sala (mesas huérfanas).
+- [ ] Generación visual de QR en miniatura en cada mesa (`qr_flutter`).
+- [ ] Descarga individual del QR en PDF o Imagen.
+- [ ] Generador en lote (Batch): Botón para exportar el catálogo completo de QRs de una sala en un solo archivo PDF (`pdf` + `printing`).
+
+### Sprint 2: Catálogo Vivo (Menú Cliente) (`feature_menu_qr`)
+- [ ] Conexión de UI de cliente con URL paramétrica (`/:tenant_slug/:sala_id/:mesa_id`).
+- [ ] Carrito de compras flotante (Riverpod Provider).
+- [ ] Botón de "Pedir Cuenta" integrado al estado del pedido.
+
+### Sprint 3: Operativa de Salón (`feature_pos` y `feature_cocina`)
+- [ ] Vista del Comedor interactiva (Grid por colores según estado).
+- [ ] Kanban drag-and-drop de comandas de cocina.

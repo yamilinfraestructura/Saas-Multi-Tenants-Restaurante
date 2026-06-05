@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../domain/auth_repository.dart';
-import '../domain/supabase_auth_repository.dart';
+import '../utils/auth_session_context.dart';
 
 final authRepositoryProvider = Provider<AuthRepository>((ref) {
   return locator<AuthRepository>();
@@ -13,31 +13,31 @@ final authStateProvider = StreamProvider<AuthState>((ref) {
   return Supabase.instance.client.auth.onAuthStateChange;
 });
 
+/// Sesión actual: el stream puede llegar un tick después de signInWithPassword.
+final currentSessionProvider = Provider<Session?>((ref) {
+  ref.watch(authStateProvider);
+  return Supabase.instance.client.auth.currentSession;
+});
+
 final currentUserProvider = Provider<User?>((ref) {
-  final authState = ref.watch(authStateProvider).valueOrNull;
-  return authState?.session?.user;
+  return ref.watch(currentSessionProvider)?.user;
+});
+
+final jwtClaimsProvider = Provider<Map<String, dynamic>?>((ref) {
+  ref.watch(currentSessionProvider);
+  return AuthSessionContext.claimsFrom(Supabase.instance.client);
 });
 
 final currentTenantIdProvider = Provider<String?>((ref) {
-  final user = ref.watch(currentUserProvider);
-  if (user == null) {
-    return null;
-  }
-
-  return user.appMetadata['tenant_id'] as String? ??
-      user.userMetadata?['tenant_id'] as String?;
+  ref.watch(currentSessionProvider);
+  return AuthSessionContext.tenantId(Supabase.instance.client);
 });
 
 final currentUserNivelProvider = Provider<String?>((ref) {
-  final user = ref.watch(currentUserProvider);
-  if (user == null) {
-    return null;
-  }
-
-  return user.appMetadata['nivel_acceso'] as String? ??
-      user.userMetadata?['nivel_acceso'] as String?;
+  ref.watch(currentSessionProvider);
+  return AuthSessionContext.nivelAcceso(Supabase.instance.client);
 });
 
 final isAuthenticatedProvider = Provider<bool>((ref) {
-  return ref.watch(currentUserProvider) != null;
+  return ref.watch(currentSessionProvider) != null;
 });

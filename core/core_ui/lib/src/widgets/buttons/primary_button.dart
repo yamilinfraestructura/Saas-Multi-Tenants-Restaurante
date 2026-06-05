@@ -14,7 +14,10 @@ class PrimaryButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
+    final button = ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        minimumSize: const Size(0, 48),
+      ),
       onPressed: isLoading ? null : onPressed,
       child: isLoading
           ? const SizedBox(
@@ -23,6 +26,15 @@ class PrimaryButton extends StatelessWidget {
               child: CircularProgressIndicator(strokeWidth: 2),
             )
           : Text(label),
+    );
+
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        if (constraints.maxWidth.isFinite) {
+          return SizedBox(width: double.infinity, child: button);
+        }
+        return button;
+      },
     );
   }
 }

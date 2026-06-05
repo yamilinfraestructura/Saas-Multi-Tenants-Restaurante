@@ -1,3 +1,4 @@
+import 'package:core_auth/core_auth.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../models/admin_models.dart';
@@ -33,10 +34,7 @@ class SupabaseAdminRepository implements AdminRepository {
 
   @override
   Future<AdminProducto> createProducto(AdminProducto producto) async {
-    final tenantId = _client.auth.currentUser?.appMetadata['tenant_id'] as String?;
-    if (tenantId == null) {
-      throw Exception('Sin tenant en sesión');
-    }
+    final tenantId = requireTenantId(_client);
 
     final data = await _client
         .from('productos')
@@ -77,10 +75,7 @@ class SupabaseAdminRepository implements AdminRepository {
 
   @override
   Future<AdminSala> createSala(String nombre) async {
-    final tenantId = _client.auth.currentUser?.appMetadata['tenant_id'] as String?;
-    if (tenantId == null) {
-      throw Exception('Sin tenant en sesión');
-    }
+    final tenantId = requireTenantId(_client);
 
     final data = await _client
         .from('salas')
@@ -99,10 +94,7 @@ class SupabaseAdminRepository implements AdminRepository {
     required String salaId,
     required String valor,
   }) async {
-    final tenantId = _client.auth.currentUser?.appMetadata['tenant_id'] as String?;
-    if (tenantId == null) {
-      throw Exception('Sin tenant en sesión');
-    }
+    final tenantId = requireTenantId(_client);
 
     final data = await _client
         .from('mesas')

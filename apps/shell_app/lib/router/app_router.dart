@@ -12,6 +12,7 @@ import 'package:go_router/go_router.dart';
 class _RouterRefreshNotifier extends ChangeNotifier {
   _RouterRefreshNotifier(this._ref) {
     _ref.listen(authStateProvider, (_, __) => notifyListeners());
+    _ref.listen(loginControllerProvider, (_, __) => notifyListeners());
     _ref.listen(tenantInfoProvider, (_, __) => notifyListeners());
   }
 

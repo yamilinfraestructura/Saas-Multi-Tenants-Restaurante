@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:core_auth/core_auth.dart';
 import 'package:core_network/core_network.dart';
 import 'package:esc_pos_utils_plus/esc_pos_utils_plus.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -13,8 +14,7 @@ class ThermalPrinterServiceImpl implements ThermalPrinterService {
 
   @override
   Future<PrinterConfig?> getPrinterConfig() async {
-    final tenantId =
-        _client.auth.currentUser?.appMetadata['tenant_id'] as String?;
+    final tenantId = AuthSessionContext.tenantId(_client);
     if (tenantId == null) {
       return null;
     }
